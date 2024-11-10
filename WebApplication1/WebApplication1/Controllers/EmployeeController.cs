@@ -20,48 +20,53 @@ namespace WebApplication1.Controller
             {
                 return NotFound();
             }
-            return Ok(empList);
+            return empList;
         }
 
         // GET api/<EmployeeController>/5
         [HttpGet("{id}")]
         public ActionResult<Employee> Get(int id)
         {
+            if (id <= 0) return BadRequest();
             Employee emp= employeeService.GetEmployeeById(id);
             if (emp == null)
             {
                 return NotFound();
             }
-            return Ok(emp); 
+            return emp; 
         }
 
         // POST api/<EmployeeController>
         [HttpPost]
-        public ActionResult Post([FromBody] Employee value)
+        public ActionResult<bool> Post([FromBody] Employee value)
         {
             if (value == null)
                 return BadRequest();
             employeeService.AddEmployee(value);
-            return Ok();
+            return true;
 
         }   
             
 
         // PUT api/<EmployeeController>/5
         [HttpPut("{id}")]
-        public ActionResult Put(int id, [FromBody] Employee value)
+        public ActionResult<bool> Put(int id, [FromBody] Employee value)
         {
-            if (employeeService.UpdateEmployee(value))
-                return Ok();
+            if(value == null || id <= 0)
+                return BadRequest();
+            if (employeeService.UpdateEmployee(id, value))
+                return true;
             return NotFound();
         }
 
         // DELETE api/<EmployeeController>/5
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        public ActionResult<bool>    Delete(int id)
         {
+            if(id <=0)
+                return BadRequest();
             if(employeeService.DeleteEmployee(id))
-                return Ok();
+                return true;
             return NotFound();
 
         }

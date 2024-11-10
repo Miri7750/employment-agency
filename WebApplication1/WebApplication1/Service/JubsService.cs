@@ -5,20 +5,26 @@ namespace WebApplication1.Service
 {
     public class JubService
     {
-        static List<Jubs> jubList = new List<Jubs>();
-
-        public void AddJub(Jubs jub)
+        static List<Jub> jubList = new List<Jub>();
+        static int id = 1;
+        public void AddJub(Jub jub)
         {
+            jub.JubId = id++;
             jubList.Add(jub);
 
         }
-        public bool Update(Jubs jub)
+        public bool Update(int id,Jub jub)
         {
             for (int i = 0; i < jubList.Count; i++)
             {
-                if (jubList[i].JubId == jub.JubId)
+                if (jubList[i].JubId == id)
                 {
-                    jubList[i] = jub;
+                    jubList[i].Region = jub.Region;
+                    jubList[i].BusinessId = jub.BusinessId;
+                    jubList[i].Name = jub.Name;
+                    jubList[i].Created=jub.Created;
+                    jubList[i].Description = jub.Description;
+                    jubList[i].AdditionalRequirements = jub.AdditionalRequirements;
                     return true;
                 }
             }
@@ -37,14 +43,14 @@ namespace WebApplication1.Service
             return false;
         }
 
-        public List<Jubs> GetJubs()
+        public List<Jub> GetJubs()
         {
 
 
             return jubList;
         }
 
-        public Jubs GetJubById(int jubId)
+        public Jub GetJubById(int jubId)
         {
             for (int i = 0; i < jubList.Count; i++)
             {
@@ -57,7 +63,7 @@ namespace WebApplication1.Service
             return null;
         }
 
-        public List<Jubs> GetJubsByRegion(Region region)
+        public List<Jub> GetJubsByRegion(Region region)
         {
             return jubList.FindAll(jub => jub.Region == region);
         }

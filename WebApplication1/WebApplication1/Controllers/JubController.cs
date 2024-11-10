@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using WebApplication1.DTO;
 using WebApplication1.Service;
 
@@ -10,61 +11,65 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class JubController : ControllerBase
     {
-        readonly JubService jubsService= new JubService();
+        readonly JubService jubsService = new JubService();
 
         // GET: api/<JubController>
         [HttpGet]
-        public ActionResult<List<Jubs>> Get()
+        public ActionResult<List<Jub>> Get()
         {
-            List<Jubs> jubs=jubsService.GetJubs();
-            if (jubs==null)
+            List<Jub> jubs = jubsService.GetJubs();
+            if (jubs == null)
                 return NotFound();
-            return Ok(jubs);
+            return jubs;
         }
 
         // GET api/<JubController>/5
         [HttpGet("{id}")]
-        public ActionResult<Jubs> Get(int id)
+        public ActionResult<Jub> Get(int id)
         {
-           return Ok( jubsService.GetJubById(id));
+            if (id <= 0) return BadRequest();
+            return jubsService.GetJubById(id);
         }
 
         // GET api/<JubController>/reg
-        [HttpGet("{region}")]
-        public ActionResult<Jubs> Get(Region region)
+        [HttpGet("{jub}")]
+        public ActionResult<List<Jub>> Get(Region region)
         {
-            return Ok(jubsService.GetJubsByRegion(region));
+            return jubsService.GetJubsByRegion(region);
         }
 
         // POST api/<JubController>
         [HttpPost]
-        public ActionResult Post([FromBody] Jubs value)
+        public ActionResult<bool> Post([FromBody] Jub value)
         {
             if (value == null)
                 return BadRequest();
             jubsService.AddJub(value);
-            return Ok();
+            return true;
         }
 
         // PUT api/<JubController>/5
         [HttpPut("{id}")]
-        public ActionResult Put(int id, [FromBody] Jubs value)
+        public ActionResult<bool> Put(int id, [FromBody] Jub value)
         {
-            if(value == null)
+            if (value == null || id <= 0)
                 return BadRequest();
-            if(jubsService.Update(value))
-                return Ok();
+            if (jubsService.Update(id, value))
+                return true;
             return NotFound();
         }
 
 
         // DELETE api/<JubController>/5
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        public ActionResult<bool> Delete(int id)
         {
-            if(jubsService.Delete(id))
-                return Ok();
+            if (id <= 0) return BadRequest();
+            if (jubsService.Delete(id))
+                return true;
             return NotFound();
         }
     }
 }
+
+

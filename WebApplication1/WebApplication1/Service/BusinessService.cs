@@ -5,7 +5,7 @@ namespace WebApplication1.Service
     public class BusinessService
     {
         static List<Business> BusinessesList {  get; }=new List<Business>();
-
+        static int id=1;
         public List<Business> GetAllBusinesses()
         {
             return BusinessesList;
@@ -20,13 +20,20 @@ namespace WebApplication1.Service
             return null;
         }
 
-        public bool UpdateBusiness(Business business)
+        public bool UpdateBusiness(int id,Business business)
         {
             for(int i = 0;i < BusinessesList.Count;i++)
             {
-                if (BusinessesList[i].BusinessId == business.BusinessId)
+                if (BusinessesList[i].BusinessId == id)
                 {
-                    BusinessesList[i] = business;
+                    BusinessesList[i].Region = business.Region;
+                    BusinessesList[i].Name = business.Name;
+                    BusinessesList[i].City = business.City;
+                    BusinessesList[i].ContactPerson = business.ContactPerson;
+                    BusinessesList[i].Manager = business.Manager;
+                    BusinessesList[i].Email = business.Email;
+                    BusinessesList[i].PaymentDetails = business.PaymentDetails;
+                    BusinessesList[i].Phone = business.Phone;
                     return true;
                 }
             }
@@ -47,7 +54,7 @@ namespace WebApplication1.Service
 
         public void AddBusiness(Business business)
         {
-            business.BusinessId = BusinessesList[BusinessesList.Count-1].BusinessId+1;
+            business.BusinessId = id++;
             BusinessesList.Add(business);
         }
 

@@ -7,19 +7,25 @@ namespace WebApplication1.Service
     public class BrokeragesService
     {
         static List<Brokerage> brokList = new List<Brokerage>();
-
+        static int id = 1;
         public void Add(Brokerage brok)
         {
+            brok.BrokerageId = id++;
             brokList.Add(brok);
 
         }
-        public bool Update(Brokerage brok)
+        public bool Update(int id,Brokerage brok)
         {
             for (int i = 0; i < brokList.Count; i++)
             {
-                if (brokList[i].BrokerageId == brok.BrokerageId)
+                if (brokList[i].BrokerageId == id)
                 {
-                    brokList[i] = brok;
+                    brokList[i].BrokerageDate = brok.BrokerageDate;
+                    brokList[i].BrokerageFees = brok.BrokerageFees;
+                    brokList[i].BrokerageStatus = brok.BrokerageStatus;
+                    brokList[i].BrokerageStatus=brok.BrokerageStatus;
+                    brokList[i].JubId = brok.JubId;
+                    brokList[i].EmployeeId = brok.EmployeeId;
                     return true;
                 }
             }

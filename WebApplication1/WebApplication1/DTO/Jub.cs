@@ -1,6 +1,6 @@
 ﻿namespace WebApplication1.DTO
 {
-    public class Jubs
+    public class Jub
     {
         public int JubId { get; set; }
         public string Name { get; set; }
@@ -10,7 +10,7 @@
         public DateTime Created { get; set; }
         public int BusinessId { get; set; }
 
-        public Jubs(int jubId, string name, Region region, string description, string additionalRequirements, DateTime created, int businessId)
+        public Jub(int jubId, string name, Region region, string description, string additionalRequirements, DateTime created, int businessId)
         {
             JubId = jubId;
             Name = name;

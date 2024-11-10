@@ -5,7 +5,7 @@ namespace WebApplication1.Service
     public class EmployeeService
     {
         static List<Employee> employees = new List<Employee>();
-
+        static int id = 1;
         public List<Employee> GetEmployees()
         {
             return employees;
@@ -21,13 +21,20 @@ namespace WebApplication1.Service
             return null;
         }
 
-        public bool UpdateEmployee(Employee emp)
+        public bool UpdateEmployee(int id,Employee emp)
         {
             for (int i = 0; i < employees.Count; i++)
             {
                 if (emp.UserId == employees[i].UserId)
                 {
-                    employees[i] = emp;
+                    employees[i].Adress = emp.Adress;
+                    employees[i].Regions = emp.Regions;
+                    employees[i].PrevJub= emp.PrevJub;
+                    employees[i].EmployeeStatus = emp.EmployeeStatus;
+                    employees[i].Name = emp.Name;
+                    employees[i].Phon = emp.Phon;
+                    employees[i].RegistrationDate = emp.RegistrationDate;
+
                     return true;
                 }
             }
@@ -41,6 +48,7 @@ namespace WebApplication1.Service
 
         public void AddEmployee(Employee emp)
         {
+            emp.UserId = id++;
             employees.Add(emp);
         }
         public bool ChangeStatus(int id)

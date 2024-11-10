@@ -17,37 +17,38 @@ namespace WebApplication1.Controllers
         {
             List<Brokerage> broks = brokerageService.GetBrokerages();
             if (broks == null)
-                return NotFound();
-            return Ok(broks);
+                return new List<Brokerage>();
+            return broks;
         }
 
 
         // GET api/<BrokerageController>/5
         [HttpGet("{id}")]
-        public ActionResult<Jubs> Get(int id)
+        public ActionResult<Brokerage> Get(int id)
         {
-            return Ok(brokerageService.GetBrokerageById(id));
+            if(id <=0) return BadRequest();
+            return brokerageService.GetBrokerageById(id);
         }
 
         // POST api/<BrokerageController>
         [HttpPost]
-        public ActionResult Post([FromBody] Brokerage value)
+        public ActionResult<bool> Post([FromBody] Brokerage value)
         {
             if (value == null)
                 return BadRequest();
             brokerageService.Add(value);
-            return Ok();
+            return true;
         }
 
 
         // PUT api/<BrokerageController>/5
         [HttpPut("{id}")]
-        public ActionResult Put(int id, [FromBody] Brokerage value)
+        public ActionResult<bool> Put(int id, [FromBody] Brokerage value)
         {
-            if (value == null)
+            if (value == null || id <= 0)
                 return BadRequest();
-            if (brokerageService.Update(value))
-                return Ok();
+            if (brokerageService.Update(id, value))
+                return true;
             return NotFound();
         }
 
@@ -56,10 +57,11 @@ namespace WebApplication1.Controllers
 
         // DELETE api/<BrokerageController>/5
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        public ActionResult<bool> Delete(int id)
         {
+            if (id <= 0) return BadRequest();
             if (brokerageService.Delete(id))
-                return Ok();
+                return true;
             return NotFound();
         }
     }

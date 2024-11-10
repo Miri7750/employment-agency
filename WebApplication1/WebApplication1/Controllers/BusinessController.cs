@@ -19,50 +19,53 @@ namespace WebApplication1.Controllers
             List<Business> bus = businessService.GetAllBusinesses();
             if(bus == null)
                 return NotFound();
-            return Ok(bus);
+            return bus;
         }
 
         // GET api/<BusinessController>/5
         [HttpGet("{id}")]
         public ActionResult< Business> Get(int id)
         {
+            if(id <=0)return BadRequest();
             Business bus=businessService.GetBusinessById(id);
             if (bus != null)
-                return Ok(bus);
+                return bus;
             return NotFound();
 
         }
 
         // POST api/<BusinessController>
         [HttpPost]
-        public ActionResult Post([FromBody] Business business)
+        public ActionResult<bool> Post([FromBody] Business business)
         {
             if(business == null)
                 return BadRequest();
             
             businessService.AddBusiness(business);
-                return Ok();
+                return true;
             
 
         }
 
         // PUT api/<BusinessController>/5
         [HttpPut("{id}")]
-        public ActionResult Put(int id, [FromBody] Business value)
+        public ActionResult<bool> Put(int id, [FromBody] Business value)
         {
-            if(value == null)
+            if(value == null || id <= 0)
                 return BadRequest();
-            if(businessService.UpdateBusiness(value))
-                return Ok();
+            if(businessService.UpdateBusiness(id, value))
+                return true;
             return NotFound();
         }
 
         // DELETE api/<BusinessController>/5
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        public ActionResult<bool> Delete(int id)
         {
+            if(id <= 0)
+                return BadRequest();
             if(businessService.DeleteBusiness(id))
-                return Ok();
+                return true;
             return NotFound();
         }
     }

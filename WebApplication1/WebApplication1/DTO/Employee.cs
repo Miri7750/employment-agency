@@ -11,7 +11,7 @@
         public string Name { get; set; }
         public string Phon { get; set; }
         public string Adress { get; set; }
-        public Jubs? PrevJub { get; set; }
+        public Jub? PrevJub { get; set; }
         public DateOnly RegistrationDate { get; set; }
 
         public List<Region> Regions { get; set; }
@@ -19,7 +19,7 @@
 
         
 
-        public Employee(int userId, string name, string phon, string adress, Jubs? prevJub, DateOnly registrationDate, List<Region> regions, EStatus employeeStatus)
+        public Employee(int userId, string name, string phon, string adress, Jub? prevJub, DateOnly registrationDate, List<Region> regions, EStatus employeeStatus)
         {
             UserId = userId;
             Name = name;
