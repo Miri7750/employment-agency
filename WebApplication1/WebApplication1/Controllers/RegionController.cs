@@ -11,8 +11,11 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class RegionController : ControllerBase
     {
-        readonly RegionService regionsService = new RegionService();
-
+        readonly RegionService regionsService ;
+        public RegionController()
+        {
+            regionsService = new RegionService();
+        }
         // GET: api/<RegionController>
         [HttpGet]
         public ActionResult<List<Region>> Get()

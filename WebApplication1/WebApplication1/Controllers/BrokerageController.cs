@@ -10,7 +10,14 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class BrokerageController : ControllerBase
     {
-        readonly BrokeragesService brokerageService = new BrokeragesService();
+        readonly BrokeragesService brokerageService ;
+
+        public BrokerageController(BrokeragesService brokerageService)
+        {
+            this.brokerageService = new BrokeragesService();
+        }
+
+
         // GET: api/<BrokerageController>
         [HttpGet]
         public ActionResult<List<Brokerage>> Get()

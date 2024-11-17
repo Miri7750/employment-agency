@@ -11,7 +11,12 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class JubController : ControllerBase
     {
-        readonly JubService jubsService = new JubService();
+        readonly JubService jubsService;
+
+        public JubController(JubService jubsService)
+        {
+            this.jubsService = new JubService();
+        }
 
         // GET: api/<JubController>
         [HttpGet]

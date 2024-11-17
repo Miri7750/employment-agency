@@ -10,7 +10,13 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class BusinessController : ControllerBase
     {
-        private readonly BusinessService businessService=new BusinessService();
+        private readonly BusinessService businessService;
+
+        public BusinessController(BusinessService businessService)
+        {
+            this.businessService = new BusinessService();
+        }
+
 
         // GET: api/<BusinessController>
         [HttpGet]

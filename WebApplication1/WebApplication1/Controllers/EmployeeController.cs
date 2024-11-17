@@ -10,7 +10,11 @@ namespace WebApplication1.Controller
     [ApiController]
     public class EmployeeController : ControllerBase
     {
-        readonly EmployeeService employeeService=new EmployeeService();
+        readonly EmployeeService employeeService;
+        public EmployeeController()
+        {
+            employeeService = new EmployeeService();
+        }
         // GET: api/<EmployeeController>
         [HttpGet]
         public ActionResult<List<Employee>> Get()
