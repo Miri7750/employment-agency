@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>eployment__agency.API</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\eployment--agency.Core\eployment--agency.Core.csproj" />
+    <ProjectReference Include="..\eployment--agency.Data\eployment--agency.Data.csproj" />
+    <ProjectReference Include="..\eployment--agency.Service\eployment--agency.Service.csproj" />
+  </ItemGroup>
+
+</Project>
